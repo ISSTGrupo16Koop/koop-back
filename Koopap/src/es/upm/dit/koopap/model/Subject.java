@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,6 +17,12 @@ public class Subject implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String name;
+	
+	@ManyToMany
+	private Collection<User> professors;
+	
+	@ManyToMany
+	private Collection<User> students;
 	
 	@OneToMany(mappedBy = "subject", fetch =
 			FetchType.EAGER)
