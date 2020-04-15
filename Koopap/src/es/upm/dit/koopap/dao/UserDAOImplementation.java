@@ -39,11 +39,11 @@ public class UserDAOImplementation implements UserDAO {
 	public User read(String email) {
 			Session session = SessionFactoryService.get().openSession();
 			session.beginTransaction();
-			session.get(User.class , email);
+			User user = session.get(User.class , email);
 			
 			session.getTransaction().commit();
 			session.close();
-			return null;
+			return user;
 	}
 	
 	@SuppressWarnings("unchecked")

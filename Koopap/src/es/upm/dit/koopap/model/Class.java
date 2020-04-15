@@ -23,9 +23,9 @@ public class Class implements Serializable {
 	private int price;
 
 	@ManyToOne
-	private User professor;
+	public User professor;
 	@ManyToOne
-	private User student;
+	public User student;
 	
 	
 	public int getId() {

@@ -7,7 +7,6 @@ import java.util.List;
 import org.hibernate.Session;
 
 import es.upm.dit.koopap.model.Class;
-import es.upm.dit.koopap.model.Subject;
 
 public class ClassDAOImplementation implements ClassDAO {
 	private static  ClassDAOImplementation instance = null;
@@ -38,11 +37,11 @@ public class ClassDAOImplementation implements ClassDAO {
 	public Class read(int id) {
 		Session session = SessionFactoryService.get().openSession();
 		session.beginTransaction();
-		session.get(Class.class , id);
+		Class classroom = session.get(Class.class , id);
 		
 		session.getTransaction().commit();
 		session.close();
-		return null;
+		return classroom;
 	}
 
 	@SuppressWarnings("unchecked")

@@ -37,11 +37,11 @@ public class SubjectDAOImplementation implements SubjectDAO {
 	public Subject read(String name) {
 		Session session = SessionFactoryService.get().openSession();
 		session.beginTransaction();
-		session.get(Subject.class , name);
+		Subject subject = session.get(Subject.class , name);
 		
 		session.getTransaction().commit();
 		session.close();
-		return null;
+		return subject;
 	}
 
 	@SuppressWarnings("unchecked")

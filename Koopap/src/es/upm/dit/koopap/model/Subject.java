@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import antlr.collections.List;
+
 @Entity
 public class Subject implements Serializable {
 	public Subject() {
@@ -19,14 +21,42 @@ public class Subject implements Serializable {
 	private String name;
 	
 	@ManyToMany
-	private Collection<User> professors;
+	public Collection<User> professors;
 	
 	@ManyToMany
-	private Collection<User> students;
+	public Collection<User> students;
 	
 	@OneToMany(mappedBy = "subject", fetch =
 			FetchType.EAGER)
-	private Collection<Class> classes;
+	public Collection<Class> classes;
+	
+	public Collection<User> getProfessors() {
+		return professors;
+	}
+
+	public void setProfessors(Collection<User> professors) {
+		this.professors = professors;
+	}
+
+	public Collection<User> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Collection<User> students) {
+		this.students = students;
+	}
+
+	public Collection<Class> getClasses() {
+		return classes;
+	}
+
+	public void setClasses(Collection<Class> classes) {
+		this.classes = classes;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 	public void setName(String name) {
 		this.name = name;

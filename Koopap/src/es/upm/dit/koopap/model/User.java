@@ -25,18 +25,18 @@ public class User implements Serializable {
 	//private List?? schedule
 	
 	@ManyToMany
-	private Collection<Subject> professorSubjects;
+	public Collection<Subject> professorSubjects;
 	
 	@ManyToMany
-	private Collection<Subject> studentSubjects;
+	public Collection<Subject> studentSubjects;
 	
 	@OneToMany(mappedBy = "professor", fetch =
 			FetchType.EAGER)
-	private Collection<Class> professorClasses;
+	public Collection<Class> professorClasses;
 	
 	@OneToMany(mappedBy = "student", fetch =
 			FetchType.EAGER)
-	private Collection<Class> studentClasses;
+	public Collection<Class> studentClasses;
 	
 	
 	public User() {
