@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Class implements Serializable {
 	public Class() {
@@ -21,11 +23,14 @@ public class Class implements Serializable {
 	private int studentValoration;
 	private int professorValoration;
 	private int price;
-
+	
+	@JsonIgnore
 	@ManyToOne
-	public User professor;
+	private User professor;
+	
+	@JsonIgnore
 	@ManyToOne
-	public User student;
+	private User student;
 	
 	
 	public int getId() {
@@ -79,11 +84,13 @@ public class Class implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public String toString() {
 		return "Class [id=" + id + ", subject=" + subject + ", finished=" + finished + ", studentValoration="
 				+ studentValoration + ", professorValoration=" + professorValoration + ", price=" + price
 				+ ", professor=" + professor + ", student=" + student + "]";
+
 	}
 	@Override
 	public int hashCode() {

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User implements Serializable {
 	
@@ -24,19 +26,23 @@ public class User implements Serializable {
 	private String location;
 	//private List?? schedule
 	
+	@JsonIgnore
 	@ManyToMany
-	public Collection<Subject> professorSubjects;
+	private Collection<Subject> professorSubjects;
 	
+	@JsonIgnore
 	@ManyToMany
-	public Collection<Subject> studentSubjects;
+	private Collection<Subject> studentSubjects;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "professor", fetch =
 			FetchType.EAGER)
-	public Collection<Class> professorClasses;
+	private Collection<Class> professorClasses;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "student", fetch =
 			FetchType.EAGER)
-	public Collection<Class> studentClasses;
+	private Collection<Class> studentClasses;
 	
 	
 	public User() {

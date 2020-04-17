@@ -1,14 +1,19 @@
 package es.upm.dit.koopap.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.upm.dit.koopap.dao.UserDAOImplementation;
 import es.upm.dit.koopap.model.User;
@@ -33,19 +38,36 @@ public class FormCreaUserServlet extends HttpServlet {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
+		String description = req.getParameter("description");
+		String location = req.getParameter("location");
 		
 		User user = new User();
 		user.setEmail(email);
 		user.setPassword(password);
 		user.setName(name);
+		user.setDescription(description);
+		user.setLocation(location);
 		
 		UserDAOImplementation.getInstance().create(user);
+
+	    PrintWriter out = resp.getWriter();
+	    resp.setContentType("application/json");
+	    resp.setCharacterEncoding("UTF-8");
+	    
+	    JsonObject jsonObject;
+	    jsonObject = Json.createObjectBuilder()
+	                    .add("code",200)
+	                    .build();
+	    out.print(jsonObject.toString());
+	    out.flush();
+		/*
 		List<User> lu = new ArrayList<User>();
 		lu.addAll((List<User>)         
                           req.getSession().getAttribute("users"));
 		lu.add (user);
 		req.getSession().setAttribute("users", lu);
 		getServletContext().getRequestDispatcher("/Admin.jsp").forward(req,resp);
+		*/
 	}
 
 	/**

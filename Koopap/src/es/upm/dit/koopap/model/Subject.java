@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import antlr.collections.List;
 
 @Entity
@@ -20,15 +22,17 @@ public class Subject implements Serializable {
 	@Id
 	private String name;
 	
+	@JsonIgnore
 	@ManyToMany
-	public Collection<User> professors;
+	private Collection<User> professors;
 	
+	@JsonIgnore
 	@ManyToMany
-	public Collection<User> students;
+	private Collection<User> students;
 	
 	@OneToMany(mappedBy = "subject", fetch =
 			FetchType.EAGER)
-	public Collection<Class> classes;
+	private Collection<Class> classes;
 	
 	public Collection<User> getProfessors() {
 		return professors;
