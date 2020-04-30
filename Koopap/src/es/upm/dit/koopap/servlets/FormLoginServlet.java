@@ -36,10 +36,6 @@ public class FormLoginServlet extends HttpServlet {
     private final String ADMIN_PASSWORD = "root";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	resp.setHeader("Access-Control-Allow-Origin", "*");
-    	resp.setHeader("Access-Control-Max-Age", "3600");
-    	resp.setHeader("Access-Control-Allow-Credentials", "true");
-    	resp.setHeader("Access-Control-Allow-Headers", "x-requested-with, Authorization");
     	try {
     	String email = req.getParameter("email");
     	String password = req.getParameter("password");
@@ -50,6 +46,9 @@ public class FormLoginServlet extends HttpServlet {
     		req.getSession().setAttribute("users", users);
     		getServletContext().getRequestDispatcher("/Admin.jsp").forward(req,resp);
     	} else if ( null != user ) {
+    		
+    		
+    		
     		req.getSession().setAttribute("user", UserDAOImplementation.getInstance().read(user.getEmail()));
     	    PrintWriter out = resp.getWriter();
     	    resp.setContentType("application/json");
@@ -65,6 +64,9 @@ public class FormLoginServlet extends HttpServlet {
     	    out.print(jsonObject.toString());
     	    out.flush();
     	    System.out.println(jsonObject.toString());
+    	    
+    	    
+    	    
     	} else {
     		PrintWriter out = resp.getWriter();
     		JsonObject jsonObject;

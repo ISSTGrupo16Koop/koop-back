@@ -1,5 +1,5 @@
 package es.upm.dit.koopap.model;
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -16,6 +16,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	private String email;
+	@JsonIgnore
 	private String password;
 	private String name;
 	private String description;
@@ -46,6 +47,7 @@ public class User implements Serializable {
 	
 	
 	public User() {
+		status = 0;
 	}
 
 

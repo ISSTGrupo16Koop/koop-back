@@ -17,6 +17,8 @@ public class Class implements Serializable {
 	
 	@Id
 	private int id;
+	
+	@JsonIgnore
 	@ManyToOne
 	private Subject subject;
 	private boolean finished;
@@ -24,11 +26,9 @@ public class Class implements Serializable {
 	private int professorValoration;
 	private int price;
 	
-	@JsonIgnore
 	@ManyToOne
 	private User professor;
 	
-	@JsonIgnore
 	@ManyToOne
 	private User student;
 	

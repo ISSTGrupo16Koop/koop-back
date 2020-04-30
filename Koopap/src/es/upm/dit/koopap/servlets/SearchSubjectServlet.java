@@ -40,21 +40,24 @@ public class SearchSubjectServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String name = req.getParameter("subject");
 		Subject subject = SubjectDAOImplementation.getInstance().read(name);
-		System.out.println(subject.getName());
-		Collection<Class> classlist;
-		classlist = subject.getClasses();
 
 	    PrintWriter out = resp.getWriter();
 	    resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
 	    
 	    ObjectMapper mapper = new ObjectMapper();
-	    String json = mapper.writeValueAsString(classlist);
+	    String json = mapper.writeValueAsString(subject);
 	    JsonObject jsonObject;
+	    if(subject != null) {
 	    jsonObject = Json.createObjectBuilder()
 	                    .add("code",200)
-	                    .add("classlist", json) 
+	                    .add("subject", json) 
 	                    .build();
+	    } else {
+	    	jsonObject = Json.createObjectBuilder()
+                    .add("code",400)
+                    .build();
+	    }
 	    out.print(jsonObject.toString());
 	    out.flush();
 	

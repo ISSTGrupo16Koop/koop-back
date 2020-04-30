@@ -51,8 +51,18 @@ public class FormCreaClassServlet extends HttpServlet {
 			classroom.setId(id);
 			ClassDAOImplementation.getInstance().create(classroom);
 			request.getSession().setAttribute("classroom", classroom);
+		} else if (subject == null) {
+			Subject newSubject = new Subject();
+			newSubject.setName(subjectName);
+			SubjectDAOImplementation.getInstance().create(newSubject);
+			Class classroom = new Class();
+			classroom.setSubject(newSubject);
+			classroom.setPrice(price);
+			classroom.setProfessor(user);
+			classroom.setId(id);
+			ClassDAOImplementation.getInstance().create(classroom);
+			request.getSession().setAttribute("classroom", classroom);
 		}
-		getServletContext().getRequestDispatcher("/Admin.jsp").forward(request,response);
 	}
 
 

@@ -35,6 +35,9 @@
 <h2>Buscar Clase</h2>
 <%@ include file = "FormSubjectSearch.jsp" %>
 
+<h2>Contratar Clase</h2>
+<%@ include file = "ContractClass.jsp" %>
+
 <h2>Salir de la aplicación</h2>
 <%@ include file = "FormLogout.jsp" %>
 </body>

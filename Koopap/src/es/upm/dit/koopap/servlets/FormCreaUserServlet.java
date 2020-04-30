@@ -60,14 +60,6 @@ public class FormCreaUserServlet extends HttpServlet {
 	                    .build();
 	    out.print(jsonObject.toString());
 	    out.flush();
-		/*
-		List<User> lu = new ArrayList<User>();
-		lu.addAll((List<User>)         
-                          req.getSession().getAttribute("users"));
-		lu.add (user);
-		req.getSession().setAttribute("users", lu);
-		getServletContext().getRequestDispatcher("/Admin.jsp").forward(req,resp);
-		*/
 	}
 
 	/**
