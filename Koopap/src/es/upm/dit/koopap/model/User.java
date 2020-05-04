@@ -1,5 +1,6 @@
 package es.upm.dit.koopap.model;
-import java.io.Serializable; 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -24,8 +25,10 @@ public class User implements Serializable {
 	private int status;
 	private double professorValoration;
 	private double studentValoration;
+	private int numberValorations;
+
 	private String location;
-	//private List?? schedule
+	//private ArrayList[][] schedule = new ArrayList[7][3];
 	
 	@JsonIgnore
 	@ManyToMany
@@ -45,6 +48,16 @@ public class User implements Serializable {
 			FetchType.EAGER)
 	private Collection<Class> studentClasses;
 	
+	public int getNumberValorations() {
+		return numberValorations;
+	}
+
+
+	public void setNumberValorations(int numberValorations) {
+		this.numberValorations = numberValorations;
+	}
+
+
 	
 	public User() {
 		status = 0;

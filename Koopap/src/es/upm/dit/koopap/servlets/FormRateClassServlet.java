@@ -11,26 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.upm.dit.koopap.dao.ClassDAO;
 import es.upm.dit.koopap.dao.ClassDAOImplementation;
 import es.upm.dit.koopap.dao.UserDAO;
 import es.upm.dit.koopap.dao.UserDAOImplementation;
-import es.upm.dit.koopap.model.User;
 import es.upm.dit.koopap.model.Class;
+import es.upm.dit.koopap.model.User;
 
 /**
- * Servlet implementation class FormContractClassServlet
+ * Servlet implementation class FormRateClassServlet
  */
-@WebServlet("/FormContractClassServlet")
-public class FormContractClassServlet extends HttpServlet {
+@WebServlet("/FormRateClassServlet")
+public class FormRateClassServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FormContractClassServlet() {
+    public FormRateClassServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,56 +39,47 @@ public class FormContractClassServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-    	String studentEmail = req.getParameter("student");
     	String classIdString = req.getParameter("classId");
+    	String ratedString = req.getParameter("rated");
+    	int rated = Integer.parseInt(ratedString);
     	
-    	
-		UserDAO studentDAO = UserDAOImplementation.getInstance();
-		User student = studentDAO.read(studentEmail);
-		int classId = Integer.parseInt(classIdString);
-		ClassDAO classroomDAO = ClassDAOImplementation.getInstance();
+    	int classId = Integer.parseInt(classIdString);
+    	ClassDAO classroomDAO = ClassDAOImplementation.getInstance();
 		Class classroom = classroomDAO.read(classId);
 		UserDAO professorDAO = UserDAOImplementation.getInstance();
 		User professor = professorDAO.read(classroom.getProfessor().getEmail());
-
-		int price = classroom.getPrice();
 		
-		int newProfStatus = professor.getStatus()+price;
-		professor.setStatus(newProfStatus);
-		int newStudStatus = student.getStatus()-price;
-		student.setStatus(newStudStatus);
-		classroom.setStudent(student);
-		classroom.setFinished(true);
-
+		classroom.setProfessorValoration(rated);
+		classroom.setRated(true);
+		
+		double profVal = professor.getProfessorValoration();
+		int numVal = professor.getNumberValorations();		
+		double newVal = (profVal*numVal+rated)/(numVal+1);
+		professor.setNumberValorations(numVal+1);
+		professor.setProfessorValoration(newVal);
 		
 		classroomDAO.update(classroom);
 		professorDAO.update(professor);
-		studentDAO.update(student);
 		
-
 	    PrintWriter out = resp.getWriter();
 	    resp.setContentType("application/json");
 	    resp.setCharacterEncoding("UTF-8");
-	    ObjectMapper mapper = new ObjectMapper();
-	    String json = mapper.writeValueAsString(student);
+
 	    JsonObject jsonObject;
 	    jsonObject = Json.createObjectBuilder()
 	                    .add("code",200) 
-	                    .add("user", json)
 	                    .build();
 
 	    out.print(jsonObject.toString());
 	    out.flush();
-
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-
+		doGet(request, response);
 	}
 
 }

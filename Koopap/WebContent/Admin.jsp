@@ -38,6 +38,9 @@
 <h2>Contratar Clase</h2>
 <%@ include file = "ContractClass.jsp" %>
 
+<h2>Rate Clase</h2>
+<%@ include file = "RateClass.jsp" %>
+
 <h2>Salir de la aplicación</h2>
 <%@ include file = "FormLogout.jsp" %>
 </body>

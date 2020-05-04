@@ -1,7 +1,10 @@
 package es.upm.dit.koopap.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,6 +66,18 @@ public class FormCreaClassServlet extends HttpServlet {
 			ClassDAOImplementation.getInstance().create(classroom);
 			request.getSession().setAttribute("classroom", classroom);
 		}
+		
+	    PrintWriter out = response.getWriter();
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+
+	    JsonObject jsonObject;
+	    jsonObject = Json.createObjectBuilder()
+	                    .add("code",200) 
+	                    .build();
+
+	    out.print(jsonObject.toString());
+	    out.flush();
 	}
 
 

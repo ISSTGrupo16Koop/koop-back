@@ -25,7 +25,14 @@ public class Class implements Serializable {
 	private int studentValoration;
 	private int professorValoration;
 	private int price;
+	private boolean rated;
 	
+	public boolean isRated() {
+		return rated;
+	}
+	public void setRated(boolean rated) {
+		this.rated = rated;
+	}
 	@ManyToOne
 	private User professor;
 	
